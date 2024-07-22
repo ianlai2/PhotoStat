@@ -1,6 +1,7 @@
 import pandas as pd
 import exiv2
 
+# CONSTANTS
 EXIFTAGS = ('make', 'model', 'dateTimeOriginal', 'exposureTime',
                  'apertureValue', 'exposureBiasValue', 'exposureIndex', 'flash',
                  'flashBias', 'flashEnergy', 'focalLength', 'subjectDistance',
@@ -11,10 +12,6 @@ EXIFTAGS = ('make', 'model', 'dateTimeOriginal', 'exposureTime',
                  'shutterSpeedValue', 'brightnessValue', 'maxApertureValue',
                  'lightSource', 'subjectArea', 'sensingMethod')
 
-fuji = r'C:\Users\Saber\OneDrive\Pictures\2024\2024-07-07\DSCF0429.RAF'
-nikon = r'C:\Users\Saber\OneDrive\Pictures\raws\2024\2024-04-08\DSC_9423.NEF'
-
-df = pd.DataFrame(columns=EXIFTAGS)
 
 def readFileMetadata(fp, df, p=True): # reads exif data from image from a filepath, fp and appends to a dataframe, df; will print read exif data with flag p by default
      
@@ -39,6 +36,13 @@ def readFileMetadata(fp, df, p=True): # reads exif data from image from a filepa
 
     return 0
 
+# TEST FILES WITH FUJI AND NIKON RAWS
+fuji = r'C:\Users\Saber\OneDrive\Pictures\2024\2024-07-07\DSCF0429.RAF'
+nikon = r'C:\Users\Saber\OneDrive\Pictures\raws\2024\2024-04-08\DSC_9423.NEF'
+
+df = pd.DataFrame(columns=EXIFTAGS)
 readFileMetadata(fuji, df)
 readFileMetadata(nikon, df)
 print(df)
+
+
