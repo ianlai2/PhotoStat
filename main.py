@@ -1,5 +1,6 @@
 import pandas as pd
 import exiv2
+import os
 
 # CONSTANTS
 EXIFTAGS = ('make', 'model', 'dateTimeOriginal', 'exposureTime',
@@ -12,7 +13,7 @@ EXIFTAGS = ('make', 'model', 'dateTimeOriginal', 'exposureTime',
                  'shutterSpeedValue', 'brightnessValue', 'maxApertureValue',
                  'lightSource', 'subjectArea', 'sensingMethod')
 
-
+# METHODS  
 def readFileMetadata(fp, df, p=True): # reads exif data from image from a filepath, fp and appends to a dataframe, df; will print read exif data with flag p by default
      
     img = exiv2.ImageFactory.open(fp)
@@ -36,13 +37,27 @@ def readFileMetadata(fp, df, p=True): # reads exif data from image from a filepa
 
     return 0
 
-# TEST FILES WITH FUJI AND NIKON RAWS
-fuji = r'C:\Users\Saber\OneDrive\Pictures\2024\2024-07-07\DSCF0429.RAF'
-nikon = r'C:\Users\Saber\OneDrive\Pictures\raws\2024\2024-04-08\DSC_9423.NEF'
-
-df = pd.DataFrame(columns=EXIFTAGS)
-readFileMetadata(fuji, df)
-readFileMetadata(nikon, df)
-print(df)
+def readFolder(folder):
+    for file in os.listdir(folder):
+        img = os.path.join(folder, file)
+        if os.path.isfile(img):
+            readFileMetadata(img, testdf, p=False)
+    return 0
 
 
+# # TEST FILES WITH FUJI AND NIKON RAWS
+# fuji = r'C:\Users\Saber\OneDrive\Pictures\2024\2024-07-07\DSCF0429.RAF'
+# nikon = r'C:\Users\Saber\OneDrive\Pictures\raws\2024\2024-04-08\DSC_9423.NEF'
+
+# df = pd.DataFrame(columns=EXIFTAGS)
+# readFileMetadata(fuji, df)
+# readFileMetadata(nikon, df)
+# print(df)
+
+
+# PLACEHOLDER FOR FRONT END INTEGRATION
+folder = r'C:\Users\Saber\OneDrive\Desktop\Night Market 2024 raws\nm\nm2'
+testdf = pd.DataFrame(columns=EXIFTAGS)
+
+readFolder(folder)
+print(testdf)
